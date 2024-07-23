@@ -11,7 +11,8 @@ router.get("/", async function (req, res, next) {
   try{
     const codeVerifier = process.env.CODE_VERIFIER;
     const codeChallenge = createHash("sha256").update(codeVerifier).digest("base64url");
-    const requestUrl = `${process.env.OIDC_URL}/oidc/auth?client_id=${process.env.CLIENT_ID}&response_type=code&response_mode=query&redirect_uri=http://localhost:${process.env.SERVER_PORT}/callback&code_challenge=${codeChallenge}&code_challenge_method=S256&scope=openid is_legal_age`
+    const requestUrl = `${process.env.OIDC_URL}/oidc/auth?client_id=${process.env.CLIENT_ID}&response_type=code&response_mode=query&redirect_uri=http://localhost:${process.env.SERVER_PORT}/callback&code_challenge=${codeChallenge}&code_challenge_method=S256&scope=openid is_legal_age nim`
+    console.log(requestUrl)
     res.render("login", { title: "Login", requestUrl: requestUrl, port: process.env.SERVER_PORT, oidcUrl: process.env.OIDC_URL, clientId: process.env.CLIENT_ID, codeChallenge: codeChallenge});
   } catch(error:any){
     console.error(error.message);
