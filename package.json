@@ -7,15 +7,17 @@
   "scripts": {
     "start": "node --experimental-specifier-resolution=node --loader ts-node/esm dist/index.js",
     "dev": "tsc-watch --onSuccess \"npm run watch\"",
-    "watch": "nodemon --watch './**/*.{ts,graphql}' --exec \"node --experimental-specifier-resolution=node --loader ts-node/esm\" src/index.ts",
+    "watch": "nodemon -e ts,ejs,html --watch src\\ --exec \"npm run tailwind:css && node --experimental-specifier-resolution=node --loader ts-node/esm\" src/index.ts",
     "build": "tsc",
     "migrate": "npx prisma db pull && npx prisma generate",
+    "tailwind:css": "postcss src/public/styles/tailwind.css -o src/public/styles/style.css",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "@prisma/client": "^5.16.1",
+    "autoprefixer": "^10.4.19",
     "axios": "^1.7.2",
     "cookie-parser": "^1.4.6",
     "cors": "^2.8.5",
@@ -23,8 +25,11 @@
     "ejs": "^3.1.10",
     "express": "^4.19.2",
     "morgan": "^1.10.0",
+    "postcss": "^8.4.40",
+    "postcss-cli": "^11.0.0",
     "prisma-exclude": "^1.0.2",
-    "sqlite3": "^5.1.7"
+    "sqlite3": "^5.1.7",
+    "tailwindcss": "^3.4.6"
   },
   "devDependencies": {
     "@types/cookie-parser": "^1.4.7",
